@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="jumbotron text-center" style="background-image: url('{{ url_for('static', filename='images/gym_hero.jpg') }}'); background-size: cover; color: white;">
+    <h1 class="display-4">Welcome to Our Gym!</h1>
+    <p class="lead">Manage your gym memberships efficiently and easily.</p>
+</div>
+<h2 class="mb-4">Gym Members</h2>
+<div class="list-group">
+    {% for member in members %}
+    <a href="{{ url_for('member_details', id=member['_id']) }}" class="list-group-item list-group-item-action">
+        {{ member['name'] }} ({{ member['membership_type'] }})
+        <span class="float-right">
+            <a href="{{ url_for('edit_member', id=member['_id']) }}" class="btn btn-sm btn-primary">Edit</a>
+            <form action="{{ url_for('delete_member', id=member['_id']) }}" method="post" class="d-inline">
+                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+            </form>
+        </span>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}
+
+
